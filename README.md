@@ -72,3 +72,5 @@ Empirically, we observed that this gradient-biased hopping worked well in **low-
 * **Explosion of basins:** As dimension grows, the number of local minima explodes (often exponentially).  The landscape becomes so rich that any guided jump struggles to explore adequately.  Basin-hopping itself faces a severe scalability issue: the computational cost and memory needed grow very quickly with dimensionality.  Our gradient-biased method is not exempt from this curse.
 
 * **Geometry of high-D space:** In high dimensions, a random vector is almost orthogonal to any fixed direction on average.  In practice this means our combined direction $h = \mathrm{normalize}(w\,a + (1-w)\,r)$ is often dominated by the random part unless $w$ is 1.  The gradient direction $a$ contributes less to the overall hop direction when $r$ is nearly perpendicular.  Thus, the “gradient-assisted” bias becomes weaker in higher dimensions, and the algorithm behaves more like standard basin-hopping.
+
+* There may be many other reasons. **Key Learning:** In high dimensions, randomness is powerful; adding determinism to hops reduces diversity and gets us stuck.
