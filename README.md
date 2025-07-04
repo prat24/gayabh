@@ -46,7 +46,10 @@ The intuition is that **large peaks or ridges** often act as barriers in the sea
 Mathematically, the **hop direction** is given by
 
 $$
-h = \frac{w\,\frac{\nabla f(x)}{\|\nabla f(x)\|} \;+\; (1-w)\,r}{\bigl\|w\,\frac{\nabla f(x)}{\|\nabla f(x)\|} + (1-w)\,r\bigr\|}\,,
+h^=wg^+(1−w)r^∥wg^+(1−w)r^∥
+h^=∥wg^​+(1−w)r^∥wg^​+(1−w)r^​
+
+where g^​=∥∇f(x)∥∇f(x)​,if ∥∇f(x)∥>ε
 $$
 
 where $r$ is a random unit vector.  We then move $x \leftarrow x + \alpha h$, followed by a local minimization.  By construction, when the gradient is strong, $h$ is close to $\nabla f$; when the gradient is weak or at a flat point, $h$ defaults to a near-random direction.  This “gradient + random” strategy can be seen as a **hybrid** global-local method, akin to proposals of combining basin-hopping with gradient steps, but here we incorporate the gradient into the hop itself.
