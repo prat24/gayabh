@@ -43,22 +43,28 @@ The key difference from classical basin-hopping is simply in how the hop is perf
 
 The intuition is that **large peaks or ridges** often act as barriers in the search space.  A purely local descent (gradient) will get stuck in one basin, and a purely random hop may frequently waste moves in uninformative directions.  By climbing first (gradient ascent) and then jumping, we effectively start each jump from a higher elevation.  Imagine trying to escape a valley surrounded by tall hills: if you climb partway up a hill (using the gradient) before jumping, you have a better chance of leaping over the ridge into a new basin.  In other words, aligning some of the random hops toward the steepest climb can “unlock” access to distant regions that would be very unlikely under purely random hops.  In our chemical-physics toy problem (a 2D “hilly” function), this meant the optimizer tended to hop toward promising peaks and then slide down into deeper minima, often finding the global minimum more quickly in low dimensions.
 
-Mathematically, the **hop direction ĥ** is given by
+Mathematically, the **hop direction** $\hat{\mathbf{h}}$ is defined as:  
 
-
-**ĥ = (w ⋅ ĝ + (1 - w) ⋅ û) / ||w ⋅ ĝ + (1 - w) ⋅ û||**
+$$
+\hat{\mathbf{h}} = \frac{w \cdot \hat{\mathbf{g}} + (1 - w) \cdot \hat{\mathbf{u}}}{\left\| w \cdot \hat{\mathbf{g}} + (1 - w) \cdot \hat{\mathbf{u}} \right\|}
+$$
 
 With:  
-- **ĝ** = normalized gradient direction:
-  - If `||∇f(x)|| > ε`:  
-    **ĝ = ∇f(x) / ||∇f(x)||**
-  - Else:  
-    **ĝ = u₁ / ||u₁||**, where each component of **u₁** is sampled uniformly from **[-1, 1]**
-- **û = u₂ / ||u₂||**, where each component of **u₂** is sampled uniformly from **[-1, 1]**
-- `s > 0`: step size  
-- `w ∈ [0,1]`: gradient weight 
+- Normalized gradient direction:
+  $$
+  \hat{\mathbf{g}} =
+  \begin{cases}
+  \dfrac{\nabla f(\mathbf{x})}{\|\nabla f(\mathbf{x})\|}, & \text{if } \|\nabla f(\mathbf{x})\| > \epsilon \\[1.2em]
+  \dfrac{\mathbf{u}_1}{\|\mathbf{u}_1\|}, & \text{otherwise}
+  \end{cases}
+  $$
 
-where $r$ is a random unit vector.  We then move $x \leftarrow x + \alpha h$, followed by a local minimization.  By construction, when the gradient is strong, $h$ is close to $\nabla f$; when the gradient is weak or at a flat point, $h$ defaults to a near-random direction.  This “gradient + random” strategy can be seen as a **hybrid** global-local method, akin to proposals of combining basin-hopping with gradient steps, but here we incorporate the gradient into the hop itself.
+- Random unit vector:
+  $$
+  \hat{\mathbf{u}} = \frac{\mathbf{u}_2}{\|\mathbf{u}_2\|}, \quad \mathbf{u}_2 \sim \mathcal{U}(-1,1)^n
+  $$
+
+We then move $x \leftarrow x + \alpha h$, followed by a local minimization.  By construction, when the gradient is strong, $h$ is close to $\nabla f$; when the gradient is weak or at a flat point, $h$ defaults to a near-random direction.  This strategy can be seen as a **hybrid** global-local method, akin to proposals of combining basin-hopping with gradient steps, but here we incorporate the gradient into the hop itself.
 
 ## Performance
 
