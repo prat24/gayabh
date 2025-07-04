@@ -48,7 +48,7 @@ Mathematically, the **hop direction** is given by
 $$
 h^=wg^+(1−w)r^∥wg^+(1−w)r^∥
 h^=∥wg^​+(1−w)r^∥wg^​+(1−w)r^​
-
+$$
 where g^​=∥∇f(x)∥∇f(x)​,if ∥∇f(x)∥>ε
 $$
 
