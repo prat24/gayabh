@@ -43,14 +43,20 @@ The key difference from classical basin-hopping is simply in how the hop is perf
 
 The intuition is that **large peaks or ridges** often act as barriers in the search space.  A purely local descent (gradient) will get stuck in one basin, and a purely random hop may frequently waste moves in uninformative directions.  By climbing first (gradient ascent) and then jumping, we effectively start each jump from a higher elevation.  Imagine trying to escape a valley surrounded by tall hills: if you climb partway up a hill (using the gradient) before jumping, you have a better chance of leaping over the ridge into a new basin.  In other words, aligning some of the random hops toward the steepest climb can “unlock” access to distant regions that would be very unlikely under purely random hops.  In our chemical-physics toy problem (a 2D “hilly” function), this meant the optimizer tended to hop toward promising peaks and then slide down into deeper minima, often finding the global minimum more quickly in low dimensions.
 
-Mathematically, the **hop direction** is given by
+Mathematically, the **hop direction ĥ** is given by
 
-$$
-h^=wg^+(1−w)r^∥wg^+(1−w)r^∥
-h^=∥wg^​+(1−w)r^∥wg^​+(1−w)r^​
-$$
-where g^​=∥∇f(x)∥∇f(x)​,if ∥∇f(x)∥>ε
-$$
+
+**ĥ = (w ⋅ ĝ + (1 - w) ⋅ û) / ||w ⋅ ĝ + (1 - w) ⋅ û||**
+
+With:  
+- **ĝ** = normalized gradient direction:
+  - If `||∇f(x)|| > ε`:  
+    **ĝ = ∇f(x) / ||∇f(x)||**
+  - Else:  
+    **ĝ = u₁ / ||u₁||**, where each component of **u₁** is sampled uniformly from **[-1, 1]**
+- **û = u₂ / ||u₂||**, where each component of **u₂** is sampled uniformly from **[-1, 1]**
+- `s > 0`: step size  
+- `w ∈ [0,1]`: gradient weight 
 
 where $r$ is a random unit vector.  We then move $x \leftarrow x + \alpha h$, followed by a local minimization.  By construction, when the gradient is strong, $h$ is close to $\nabla f$; when the gradient is weak or at a flat point, $h$ defaults to a near-random direction.  This “gradient + random” strategy can be seen as a **hybrid** global-local method, akin to proposals of combining basin-hopping with gradient steps, but here we incorporate the gradient into the hop itself.
 
