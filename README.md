@@ -50,19 +50,16 @@ $$
 $$
 
 With:  
-- Normalized gradient direction:
-  $$
-  \hat{\mathbf{g}} =
-  \begin{cases}
-  \dfrac{\nabla f(\mathbf{x})}{\|\nabla f(\mathbf{x})\|}, & \text{if } \|\nabla f(\mathbf{x})\| > \epsilon \\[1.2em]
-  \dfrac{\mathbf{u}_1}{\|\mathbf{u}_1\|}, & \text{otherwise}
-  \end{cases}
-  $$
-
-- Random unit vector:
-  $$
-  \hat{\mathbf{u}} = \frac{\mathbf{u}_2}{\|\mathbf{u}_2\|}, \quad \mathbf{u}_2 \sim \mathcal{U}(-1,1)^n
-  $$
+$$
+\hat{\mathbf{g}} =
+\begin{cases}
+\dfrac{\nabla f(\mathbf{x})}{\|\nabla f(\mathbf{x})\|}, & \text{if } \|\nabla f(\mathbf{x})\| > \epsilon \\[1.2em]
+\dfrac{\mathbf{u}_1}{\|\mathbf{u}_1\|}, & \text{otherwise}
+\end{cases}
+$$
+$$
+\hat{\mathbf{u}} = \frac{\mathbf{u}_2}{\|\mathbf{u}_2\|}, \quad \mathbf{u}_2 \sim \mathcal{U}(-1,1)^n
+$$
 
 We then move $x \leftarrow x + \alpha h$, followed by a local minimization.  By construction, when the gradient is strong, $h$ is close to $\nabla f$; when the gradient is weak or at a flat point, $h$ defaults to a near-random direction.  This strategy can be seen as a **hybrid** global-local method, akin to proposals of combining basin-hopping with gradient steps, but here we incorporate the gradient into the hop itself.
 
