@@ -9,7 +9,7 @@ In practice, however, basin-hopping is *not* widely used for high-dimensional ML
 
 ## Gradient Ascent Yield Assisted Basin Hopping
 
-Our goal was not to surpass modern techniques but rather provide a minor tweak and improvement in BH's performace based on an intuitive insight. The idea is to **bias the random hops towards the direction of steepest ascent** (the negative gradient direction) instead of purely random jumps. 
+Our goal was not to surpass modern techniques but rather provide a minor tweak and improvement in BH's performace based on an intuitive insight. The idea is to **bias the random hops towards the direction of steepest ascent** instead of purely random jumps. 
 
 In effect, we “blend” a gradient-based move with a random jump. More formally this can be described as:
 
