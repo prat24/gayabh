@@ -73,4 +73,6 @@ Empirically, we observed that this gradient-biased hopping worked well in **low-
 
 * **Geometry of high-D space:** In high dimensions, a random vector is almost orthogonal to any fixed direction on average.  In practice this means our combined direction $h = \mathrm{normalize}(w\,a + (1-w)\,r)$ is often dominated by the random part unless $w$ is 1.  The gradient direction $a$ contributes less to the overall hop direction when $r$ is nearly perpendicular.  Thus, the “gradient-assisted” bias becomes weaker in higher dimensions, and the algorithm behaves more like standard basin-hopping.
 
-* There may be many other reasons. **Key Learning:** In high dimensions, randomness is powerful; adding determinism to hops reduces diversity and gets us stuck.
+* There may be many other reasons.
+
+**Key Learning:** In high dimensions, randomness is powerful; adding determinism to hops reduces diversity and gets us stuck.
